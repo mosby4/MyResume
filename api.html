@@ -7,33 +7,39 @@
         <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
     </head>
     <body>
-        <h3>Sith Language Translator</h3>
+        <!-- <h3>Enter movie name here!</h3> -->
 
-        <textarea class="form-control" id="translateText"></textarea>
+        <!-- <textarea class="form-control" id="movieFinder"></textarea> -->
 
-        <button id="translateButton" class="btn btn-primary">Translate</button>
-
-        <p id="translatedText"></p>
+        <button id="finderButton" class="btn btn-primary">List Movies</button>
 
         <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
         <script>
-            $('#movieFinder').click(function () {
-                const textToTranslate = encodeURIComponent($('#movieFinder').val());
+            $('#finderButton').click(function () {
                 const settings = {
-                        async: true,
-                        crossDomain: true,
-                        url: 'https://watchmode.p.rapidapi.com/autocomplete-search/?search_value=movieFinder',
-                        method: 'GET',
-                        headers: {
-                            'X-RapidAPI-Key': 'a401bb6b50mshb89c56f49ed7d2ep13c53ejsn5e5a3e60682f',
-                            'X-RapidAPI-Host': 'watchmode.p.rapidapi.com'
-                        }
-                    };
+                    async: true,
+                    crossDomain: true,
+                    url: 'https://movies-app1.p.rapidapi.com/api/movies',
+                    method: 'GET',
+                    headers: {
+                        'X-RapidAPI-Key': 'a401bb6b50mshb89c56f49ed7d2ep13c53ejsn5e5a3e60682f',
+                        'X-RapidAPI-Host': 'movies-app1.p.rapidapi.com'
+                    }
+                };
 
                 $.ajax(settings).done(function (response) {
-                    console.log(response);
+                    $('#movieList').remove();
+                    $('#hereAreYourMovies').remove();
+                    const $hereAreYourMovies = $('<h2 id="hereAreYourMovies">Here are your movies!</h2>');
+                    const $movieList = $('<ul id="movieList">');
+                
+                    for (let movie of response.results) {
+                        const $movie = $(`<li>${movie.title}</li>`);
+                        $movieList.append($movie);
+                    }
 
-                    $('#movieFinder').html(response.data);
+                    $('body').append($hereAreYourMovies);
+                    $('body').append($movieList);
                 });
             });
         </script>

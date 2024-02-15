@@ -17,15 +17,15 @@
         <script>
             $('#finderButton').click(function () {
                 const settings = {
-                    async: true,
-                    crossDomain: true,
-                    url: 'https://movies-app1.p.rapidapi.com/api/movies',
-                    method: 'GET',
-                    headers: {
-                        'X-RapidAPI-Key': 'a401bb6b50mshb89c56f49ed7d2ep13c53ejsn5e5a3e60682f',
-                        'X-RapidAPI-Host': 'movies-app1.p.rapidapi.com'
-                    }
-                };
+                async: true,
+                crossDomain: true,
+                url: 'https://moviesdatabase.p.rapidapi.com/titles/series/%7BseriesId%7D',
+                method: 'GET',
+                headers: {
+                    'X-RapidAPI-Key': 'a401bb6b50mshb89c56f49ed7d2ep13c53ejsn5e5a3e60682f',
+                    'X-RapidAPI-Host': 'moviesdatabase.p.rapidapi.com'
+                }
+            };
 
                 $.ajax(settings).done(function (response) {
                     $('#movieList').remove();
